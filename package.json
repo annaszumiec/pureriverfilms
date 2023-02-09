@@ -1,5 +1,5 @@
 {
-  "name": "movie_api",
+  "name": "pureriverfilms",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -8,15 +8,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/annaszumiec/movie-API.git"
+    "url": "git+https://github.com/annaszumiec/pureriverfilms"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/annaszumiec/movie-API/issues"
+    "url": "https://github.com/annaszumiec/pureriverfilms/issues"
   },
-  "homepage": "https://github.com/annaszumiec/movie-API#readme",
+  "homepage": "https://github.com/annaszumiec/pureriverfilms#readme",
   "dependencies": {
     "bcrypt": "^5.1.0",
     "body-parser": "^1.20.1",

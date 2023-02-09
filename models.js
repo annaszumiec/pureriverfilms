@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const uuid = require('uuid');
 const bcrypt = require('bcrypt');
 
 
@@ -25,28 +26,33 @@ let movieSchema = mongoose.Schema({
     Birthday: Date,
     FavoriteMovies: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Movie' }]
   });
+
+  let directorSchema = mongoose.Schema({
+    Name: String,
+    Bio: String
+    });
+
+  let genreSchema = mongoose.Schema({
+      Name: String,
+      Description: String
+  });
   
+  userSchema.statics.hashPassword = (password) => {
+    return bcrypt.hashSync(password, 10);
+  };
+  userSchema.methods.validatePassword = function(pasword) {
+    return bcrypt.compareSync(password, this.Password);
+  };
 
-
-
-//hashPassword function
-let userSchenma = mongoose.Schema({
-  Username: {type: String, required: true},
-  Password: {type: String, require: true},
-  Email: {type: String, required: true},
-  Birthday: Date,
-  FavoriteMovies:[{type: mongoose.Schema.Types.ObjectId, ref:'Movie'}]
-});
-userSchema.statics.hashPassword = (password) => {
-  return bcrypt.hashSync(password, 10);
-};
-userSchema.methods.validatePassword = function(pasword) {
-  return bcrypt.compareSync(password, this.Password);
-};
+//create collections: movies,users
 
 let Movie = mongoose.model('Movie', movieSchema);
 let User = mongoose.model('User', userSchema);
-  
+let Director = mongoose.model('Director', directorSchema);
+let Genre = mongoose.model('Genre', genreSchema);
+
+  //exporting the Models
   module.exports.Movie = Movie;
   module.exports.User = User;
-
+  module.exports.Director = Director;
+  module.exports.Genre = Genre;
