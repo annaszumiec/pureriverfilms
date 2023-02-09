@@ -16,6 +16,7 @@ const Genres = Models.Genre;
 const { check, validationResult } = require("express-validator");
 
 //Conect to mongoDB
+mongoose.set('strictQuery', false);
 mongoose.connect(process.env.mongoDB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -310,6 +311,10 @@ app.delete(
       });
   }
 );
+
+app.get('/documentation', (req, res) => {
+  res.sendFile('public/documentation.html', { root: __dirname });
+});
 
 // App-listener
 const port = process.env.PORT || 8080;
