@@ -4,7 +4,7 @@ const express = require("express"),
 
 const morgan = require('morgan');
 const app = express();
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const Models = require("./models.js");
 
 const Movies = Models.Movie;
@@ -13,14 +13,18 @@ const Directors = Models.Director;
 const Genres = Models.Genre;
 
 // Express validator
-const { check, validationResult } = require("express-validator");
+const { check, validationResult } = require('express-validator');
+
 
 //Conect to mongoDB
 mongoose.set('strictQuery', false);
-mongoose.connect(process.env.mongoDB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect('mongodb://localhost:27017/cfDB')
+
+
+// mongoose.connect( 'mongodb+srv://myska:szumiec@pureriverfilms.irczgb7.mongodb.net/?retryWrites=true&w=majority' , {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// });
 
 //Middleware & static files
 
@@ -40,7 +44,7 @@ app.use(morgan("common"));
 
 //GET request
 app.get("/", (req, res) => {
-  res.send("Welcome to pureriver films App");
+  res.send("Hallo Bless");
 });
 
 // CREATE/ Post in Mongoose
@@ -316,8 +320,11 @@ app.get('/documentation', (req, res) => {
   res.sendFile('public/documentation.html', { root: __dirname });
 });
 
-// App-listener
-const port = process.env.PORT || 8080;
-app.listen(port, "0.0.0.0", () => {
-  console.log("Listening on Port " + port);
-});
+//App-listener
+app.listen(4000, () => console.log('server started)'))
+
+
+// const port = process.env.PORT || 8080;
+// app.listen(port, "0.0.0.0", () => {
+//   console.log(" Listening on Port " + port);
+// });
