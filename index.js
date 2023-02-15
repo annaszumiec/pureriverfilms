@@ -16,15 +16,15 @@ const Genres = Models.Genre;
 const { check, validationResult } = require('express-validator');
 
 
-//Conect to mongoDB
+//Conect to mongoDB local
 mongoose.set('strictQuery', false);
-mongoose.connect('mongodb://localhost:27017/cfDB')
+// mongoose.connect('mongodb://localhost:27017/cfDB')
 
-
-// mongoose.connect( 'mongodb+srv://myska:szumiec@pureriverfilms.irczgb7.mongodb.net/?retryWrites=true&w=majority' , {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-// });
+//Connect to mongDB Atlas
+mongoose.connect(process.env.mongoDB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 //Middleware & static files
 
@@ -320,11 +320,11 @@ app.get('/documentation', (req, res) => {
   res.sendFile('public/documentation.html', { root: __dirname });
 });
 
-//App-listener
-app.listen(4000, () => console.log('server started)'))
+//App-listener local
+// app.listen(4000, () => console.log('server started)'))
 
-
-// const port = process.env.PORT || 8080;
-// app.listen(port, "0.0.0.0", () => {
-//   console.log(" Listening on Port " + port);
-// });
+//App-listener Heroku
+const port = process.env.PORT || 8080;
+app.listen(port, "0.0.0.0", () => {
+  console.log(" Listening on Port " + port);
+});
