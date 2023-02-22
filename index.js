@@ -44,7 +44,7 @@ app.use(morgan("common"));
 
 //GET request
 app.get("/", (req, res) => {
-  res.send("Hallo Bless");
+  res.send("Welcome to Pureriver Films");
 });
 
 // CREATE/ Post in Mongoose
