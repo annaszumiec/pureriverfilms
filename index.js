@@ -120,6 +120,30 @@ app.post(
   }
 );
 
+//Remove Film from a user's list of favorites
+
+app.delete(
+  '/users/:Username/movies/:MovieID',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    Users.findOneAndUpdate(
+      { Username: req.params.Username },
+      {
+        $pull: { FavoriteMovies: req.params.MovieID },
+      },
+      { new: true },
+      (err, updatedUser) => {
+        if (err) {
+          console.log(err);
+          res.status(500).send('Error ' + err);
+        } else {
+          res.json(updatedUser);
+        }
+      }
+    );
+  }
+);
+
 // READ/ get
 //Get all movies
 app.get(
@@ -268,11 +292,14 @@ app.get(
   }
 );
 
-//Update/ Put
+//Update User / Put
 app.put(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
+
+    let hashedPassword = Users.hashPassword(req.body.Password);
+
     Users.findOneAndUpdate(
       { Username: req.params.Username },
       {
